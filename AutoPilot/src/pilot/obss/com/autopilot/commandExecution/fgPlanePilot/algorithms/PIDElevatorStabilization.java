@@ -18,9 +18,9 @@ public class PIDElevatorStabilization extends PIDProcess {
 
     public PIDElevatorStabilization(AlgorithmObject pidObject) {
         super(pidObject);
-        controller.setSetpoint(0);
+//        controller.setSetpoint(0);
        /* controller.setInputRange(-500, 500);*/
-        controller.setOutputRange(-500, 500);
+//        controller.setOutputRange(-500, 500);
         SingletonCollection.setPidController(controller);
     }
 

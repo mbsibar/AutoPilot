@@ -9,6 +9,7 @@ public class ActionProcess {
 	private Double altitudeFt = 600d;
 	private Float verticalSpeed = 10f;
 	private double hertz = 0;
+	private boolean started = true;
 
 	public Float getRollDegree() {
 		return rollDegree;
@@ -64,6 +65,14 @@ public class ActionProcess {
 
 	public void setHertz(double hertz) {
 		this.hertz = hertz;
+	}
+
+	public boolean isStarted() {
+		return started;
+	}
+
+	public void setStarted(boolean started) {
+		this.started = started;
 	}
 	
 }

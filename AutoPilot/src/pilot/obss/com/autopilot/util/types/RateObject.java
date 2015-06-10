@@ -32,6 +32,10 @@ public class RateObject extends AlgorithmObject{
         this.i = i;
         this.d = d;
     }
+    
+    public void setP(float p){
+    	this.p = p;
+    }
 
     public void addIntegral(float increment) {
         if (integralList.size() == integralIterator) {

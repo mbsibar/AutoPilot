@@ -73,6 +73,10 @@ public class PIDObject extends AlgorithmObject{
 		}
 		return total;
 	}
+	
+	public void setP(float P){
+		this.p = P;
+	}
 
 
 }

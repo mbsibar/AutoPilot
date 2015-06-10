@@ -26,7 +26,7 @@ public class PlanePilot implements AutoPilot {
 	public void cycle() {
 		updatePlaneStatistics();
 		/*executeTarget();*/
-		for (PIDProcessList processList : PIDProcessList.getPIDPRocessList(CraftTypes.PLANE)) {
+		for (PIDProcessList processList : PIDProcessList.getPIDPRocessList(CraftTypes.DELTAWING)) {
 			processList.execute(actionProcess, ApplicationCollection.getPilotSensor());
 		}
 	}
@@ -40,6 +40,7 @@ public class PlanePilot implements AutoPilot {
 
 	private void updatePlaneStatistics() {
         PilotSensor pilotSensor = ApplicationCollection.getPilotSensor();
+        pilotSensor.updateSensorList();
 		craftInformation.setAirSpeed(pilotSensor.getAirSpeed());
         craftInformation.setAltitudeFt(pilotSensor.getAltituteFt());
 		craftInformation.setGpsLocation(new GpsLocation(pilotSensor.getLatitude(), pilotSensor.getLongtitude(), craftInformation.getAltitudeFt()));

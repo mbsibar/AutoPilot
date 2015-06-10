@@ -18,4 +18,7 @@ public abstract class AlgorithmObject {
     public abstract float getPreError();
 
     public abstract float getTotal(float error);
+    
+    public abstract void setP(float p);
+    
 }
