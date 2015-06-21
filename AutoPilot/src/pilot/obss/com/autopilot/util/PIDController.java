@@ -21,6 +21,7 @@ public class PIDController {
 	private int MANUAL = 0;
 	private int AUTOMATIC = 1;
 	private long lastTime;
+	private int mode = MANUAL; 
 	private double Input, Output, Setpoint;
 	private double ITerm, lastInput;
 	private double kp, ki, kd;
@@ -37,6 +38,9 @@ public class PIDController {
 	}
 
 	public double Compute(double input) {
+		if (mode == MANUAL) {
+			lastTime = new Date().getTime() - 1l;
+		}
 		this.Input = input;
 		if (!inAuto)
 			return 0;
@@ -100,6 +104,7 @@ public class PIDController {
 	}
 
 	public void SetMode(int Mode) {
+		this.mode = Mode;
 		boolean newAuto = (Mode == AUTOMATIC);
 		if (newAuto && !inAuto) { /* we just went from manual to auto */
 			Initialize();

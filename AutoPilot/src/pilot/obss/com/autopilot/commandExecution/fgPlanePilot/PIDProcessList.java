@@ -16,7 +16,7 @@ import pilot.obss.com.autopilot.util.types.CraftTypes;
 
 public enum PIDProcessList {
     PL_AILERON(new PIDPlaneAileronStabilization(ArduinoPIDConstants.planeAileronPid), true, CraftTypes.PLANE),
-    //PL_ELEVATOR(new PIDPlaneElevatorStabilization(ArduinoPIDConstants.planeElevatorPid), true, CraftTypes.PLANE),
+    PL_ELEVATOR(new PIDPlaneElevatorStabilization(ArduinoPIDConstants.planeElevatorPid), true, CraftTypes.PLANE),
     //PL_RUDDER(new PIDRudderStabilization(ArduinoPIDConstants.planeRudderPid), true, CraftTypes.PLANE),
     //PL_THROTTLE(new PIDThrottleStabilization(ArduinoPIDConstants.planeThrottlePid), true, CraftTypes.PLANE),
     //PL_ALTITUDE(new PIDVerticalSpeedStabilization(ArduinoPIDConstants.planeVerticalSpeedPid), true, CraftTypes.PLANE),

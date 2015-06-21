@@ -123,11 +123,11 @@ public class QuadCopterPilot implements AutoPilot {
 	@Override
 	public void calculateActionProcess(CLIMBTYPE climbType, float climbDegree) {
 		if (CLIMBTYPE.UP.equals(climbType)) {
-			actionProcess.setPitchDegree(climbDegree);
+//			actionProcess.setPitchDegree(climbDegree);
 		} else if (CLIMBTYPE.DOWN.equals(climbType)) {
-			actionProcess.setPitchDegree(-climbDegree);
+//			actionProcess.setPitchDegree(-climbDegree);
 		} else if (CLIMBTYPE.STABLE.equals(climbType)) {
-			actionProcess.setPitchDegree(0f);
+//			actionProcess.setPitchDegree(0f);
 		}
 	}
 

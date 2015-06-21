@@ -18,18 +18,18 @@ public class PIDPlaneAileronStabilization extends PIDProcess {
 		controller.Initialize();
 		controller.SetMode(1);
 		controller.SetTunings(0.3, 0.5, 5);
-		controller.SetOutputLimits(0, 270);
+//		controller.SetOutputLimits(50, 130);
+		controller.SetOutputLimits(-180, 180);
 		SingletonCollection.setPidController(controller);
 	}
 
 	@Override
 	public void execute(ActionProcess actionProcess, PilotSensor pilotSensor) {
 		if (CommandObject.getInstance().getStblCommand().isStabilizeAileron()) {
-			double d = controller.Compute(-CraftInformation.getInstance().getRoll());
 			controller.SetTunings(SingletonCollection.getPIDObject().getP(), SingletonCollection.getPIDObject().getI(), SingletonCollection.getPIDObject().getD());
 			controller.setSetPoint(Settings.craftType.getAutoPilot().actionProcess.getRollDegree());
 			if (Settings.craftType.getAutoPilot().actionProcess.isStarted()) {
-				pilotSensor.setAileron(new Double(d).floatValue());
+				pilotSensor.setAileron(new Double(controller.Compute(-CraftInformation.getInstance().getRoll())).floatValue());
 				controller.SetMode(1);
 			} else {
 				controller.SetMode(0);

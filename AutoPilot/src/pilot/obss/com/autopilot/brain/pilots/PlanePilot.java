@@ -26,7 +26,7 @@ public class PlanePilot implements AutoPilot {
 	public void cycle() {
 		updatePlaneStatistics();
 		/*executeTarget();*/
-		for (PIDProcessList processList : PIDProcessList.getPIDPRocessList(CraftTypes.DELTAWING)) {
+		for (PIDProcessList processList : PIDProcessList.getPIDPRocessList(CraftTypes.PLANE)) {
 			processList.execute(actionProcess, ApplicationCollection.getPilotSensor());
 		}
 	}
@@ -62,7 +62,7 @@ public class PlanePilot implements AutoPilot {
 
 	private void startStabilization() {
         CommandObject commandObject = CommandObject.getInstance();
-		actionProcess.setPitchDegree(0f);
+//		actionProcess.setPitchDegree(0f);
 		actionProcess.setHeadingDegree(craftInformation.getHeading());
 		actionProcess.setRollDegree(0f);
 		commandObject.getStblCommand().setStabilizeAileron(true);

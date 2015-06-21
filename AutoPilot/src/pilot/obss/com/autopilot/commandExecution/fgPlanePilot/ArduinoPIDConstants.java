@@ -6,7 +6,7 @@ import pilot.obss.com.autopilot.util.types.RateObject;
 
 public class ArduinoPIDConstants {
 	public static final AlgorithmObject planeAileronPid = new PIDObject("aileron", 0.002f, 0.002f, 0f, 50, -180f, 180f);
-	public static final AlgorithmObject planeElevatorPid = new RateObject("elevator", 1f, 0f, 0f, 50, -180f, 180f);
+	public static final AlgorithmObject planeElevatorPid = new PIDObject("elevator", 0.002f, 0.002f, 0f, 50, -180f, 180f);
 
     public static final AlgorithmObject dwAileronPid = new PIDObject("aileron", 1f, 0.01f, 0f, 50, -180f, 180f);
     public static final AlgorithmObject dwElevatorPid = new PIDObject("elevator", 1f, 0.01f, 0f, 50, -180f, 180f);
