@@ -7,6 +7,7 @@ public class ActionProcess {
 	private Float headingDegree = 0f;
 	private Float airSpeedDegree = 80f;
 	private Double altitudeFt = 600d;
+	private Float pitchStickValue = 0f;
 	private Float verticalSpeed = 10f;
 	private double hertz = 0;
 	private boolean started = true;
@@ -17,6 +18,14 @@ public class ActionProcess {
 
 	public void setRollDegree(Float rollDegree) {
 		this.rollDegree = rollDegree;
+	}
+	
+	public Float getPitchStickValue() {
+		return pitchStickValue;
+	}
+
+	public void setPitchStickValue(Float pitchStickValue) {
+		this.pitchStickValue = pitchStickValue;
 	}
 
 	public Float getPitchDegree() {

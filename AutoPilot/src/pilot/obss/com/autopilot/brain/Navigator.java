@@ -36,7 +36,7 @@ public class Navigator implements Runnable {
 				Date endDate = new Date();
                 Double timeDiff = (endDate.getTime() - startDate.getTime()) * 0.001;
 				pilot.actionProcess.setHertz(timeDiff);
-                Thread.sleep(1);
+                Thread.sleep(2);
 			}
 		} catch (Exception e) {
 			SingletonCollection.getUserInterface().writeToTextView(e.getMessage());

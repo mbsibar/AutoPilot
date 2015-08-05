@@ -11,15 +11,12 @@ import pilot.obss.com.autopilot.util.types.AlgorithmObject;
 import pilot.obss.com.autopilot.util.types.CraftInformation;
 
 public class PIDPlaneAileronStabilization extends PIDProcess {
-	PIDController controller = new PIDController(0.5, 0.5, 5);
+	PIDController controller = new PIDController(1, 1, 1);
 
 	public PIDPlaneAileronStabilization(AlgorithmObject pidObject) {
 		super(pidObject);
-		controller.Initialize();
-		controller.SetMode(1);
-		controller.SetTunings(0.3, 0.5, 5);
-//		controller.SetOutputLimits(50, 130);
-		controller.SetOutputLimits(-180, 180);
+		controller.setOutputLimits(-90, 90);
+		controller.setSampleTime(10);
 		SingletonCollection.setPidController(controller);
 	}
 
@@ -28,12 +25,8 @@ public class PIDPlaneAileronStabilization extends PIDProcess {
 		if (CommandObject.getInstance().getStblCommand().isStabilizeAileron()) {
 			controller.SetTunings(SingletonCollection.getPIDObject().getP(), SingletonCollection.getPIDObject().getI(), SingletonCollection.getPIDObject().getD());
 			controller.setSetPoint(Settings.craftType.getAutoPilot().actionProcess.getRollDegree());
-			if (Settings.craftType.getAutoPilot().actionProcess.isStarted()) {
-				pilotSensor.setAileron(new Double(controller.Compute(-CraftInformation.getInstance().getRoll())).floatValue());
-				controller.SetMode(1);
-			} else {
-				controller.SetMode(0);
-			}
+			float d = new Double(controller.compute(-CraftInformation.getInstance().getRoll())).floatValue();
+			pilotSensor.setAileron(d + 90);
 		}
 	}
 }

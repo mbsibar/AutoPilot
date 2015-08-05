@@ -53,6 +53,7 @@ public class QuadCopterPilot implements AutoPilot {
         craftInformation.setHeading(pilotSensor.getHeading());
         craftInformation.setRoll(pilotSensor.getRoll());
         craftInformation.setPitch(pilotSensor.getPitch());
+        craftInformation.setPitchRate(pilotSensor.getPitchRate());
         craftInformation.setVerticalSpeed(pilotSensor.getVerticalSpeed());
 		SingletonCollection.getUserInterface().updateCraftInfo(craftInformation);
 	}

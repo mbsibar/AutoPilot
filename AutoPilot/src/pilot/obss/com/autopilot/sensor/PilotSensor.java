@@ -8,6 +8,8 @@ public interface PilotSensor {
 
 	float getPitch();
 	
+	double getPitchRate();
+	
 	float getAirSpeed();
 	
 	double getAltituteFt();

@@ -11,6 +11,7 @@ public class CraftInformation {
     private float heading;
     private float roll;
     private float pitch;
+    private double pitchRate;
     private double altitudeFt;
     private float verticalSpeed;
 
@@ -80,8 +81,16 @@ public class CraftInformation {
     public void setPitch(float pitch) {
         this.pitch = pitch;
     }
+    
+    public double getPitchRate() {
+		return pitchRate;
+	}
 
-    public double getAltitudeFt() {
+	public void setPitchRate(double pitchRate) {
+		this.pitchRate = pitchRate;
+	}
+
+	public double getAltitudeFt() {
         return altitudeFt;
     }
 
@@ -102,7 +111,8 @@ public class CraftInformation {
     }
 
     public void setMotor1(float motor1) {
-        this.motor1 = getPwmValue(motor1);
+//        this.motor1 = getPwmValue(motor1);
+    	this.motor1 = motor1;
     }
 
     public float getMotor2() {
@@ -110,7 +120,8 @@ public class CraftInformation {
     }
 
     public void setMotor2(float motor2) {
-        this.motor2 = getPwmValue(motor2);
+    	this.motor2 = motor2;
+//        this.motor2 = getPwmValue(motor2);
     }
 
     public float getMotor3() {
@@ -118,7 +129,8 @@ public class CraftInformation {
     }
 
     public void setMotor3(float motor3) {
-        this.motor3 = getPwmValue(motor3);
+    	this.motor3 = motor3;
+//        this.motor3 = getPwmValue(motor3);
     }
 
     public float getMotor4() {
@@ -126,14 +138,15 @@ public class CraftInformation {
     }
 
     public void setMotor4(float motor4) {
-        this.motor4 = getPwmValue(motor4);
+//        this.motor4 = getPwmValue(motor4);
+    	this.motor4 = motor4;
     }
 
     public void setResetMotorLastSpeeds() {
-        motor1 = 1500;
-        motor2 = 1500;
-        motor3 = 1500;
-        motor4 = 1500;
+        motor1 = 0;
+        motor2 = 0;
+        motor3 = 0;
+        motor4 = 0;
     }
 
     private float getPwmValue(float motor) {

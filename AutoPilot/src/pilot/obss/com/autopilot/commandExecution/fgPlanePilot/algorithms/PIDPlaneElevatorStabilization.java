@@ -16,25 +16,25 @@ public class PIDPlaneElevatorStabilization extends PIDProcess {
 
 	public PIDPlaneElevatorStabilization(AlgorithmObject pidObject) {
 		super(pidObject);
-		controller.Initialize();
-		controller.SetMode(1);
-		controller.SetTunings(0.3, 0.5, 5);
-//		controller.SetOutputLimits(50, 130);
-		controller.SetOutputLimits(-180, 180);
-		SingletonCollection.setPidController(controller);
+//		controller.Initialize();
+//		controller.SetMode(1);
+//		controller.SetTunings(0.3, 0.5, 5);
+////		controller.SetOutputLimits(50, 130);
+//		controller.SetOutputLimits(-180, 180);
+//		SingletonCollection.setPidController(controller);
 	}
 
 	@Override
 	public void execute(ActionProcess actionProcess, PilotSensor pilotSensor) {
 		if (CommandObject.getInstance().getStblCommand().isStabilizeElevator()) {
-			controller.SetTunings(SingletonCollection.getPIDObject().getP()*1.5f, SingletonCollection.getPIDObject().getI()*1.5f, SingletonCollection.getPIDObject().getD());
-			controller.setSetPoint(Settings.craftType.getAutoPilot().actionProcess.getPitchDegree());
-			if (Settings.craftType.getAutoPilot().actionProcess.isStarted()) {
-				pilotSensor.setElevator(new Double(controller.Compute(CraftInformation.getInstance().getPitch())).floatValue());
-				controller.SetMode(1);
-			} else {
-				controller.SetMode(0);
-			}
+//			controller.SetTunings(SingletonCollection.getPIDObject().getP()*1.5f, SingletonCollection.getPIDObject().getI()*1.5f, SingletonCollection.getPIDObject().getD());
+//			controller.setSetPoint(Settings.craftType.getAutoPilot().actionProcess.getPitchDegree());
+//			if (Settings.craftType.getAutoPilot().actionProcess.isStarted()) {
+//				pilotSensor.setElevator(new Double(controller.Compute(CraftInformation.getInstance().getPitch())).floatValue());
+//				controller.SetMode(1);
+//			} else {
+//				controller.SetMode(0);
+//			}
 		}
 	}
 }

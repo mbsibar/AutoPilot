@@ -47,6 +47,7 @@ public class PlanePilot implements AutoPilot {
         craftInformation.setHeading(pilotSensor.getHeading());
         craftInformation.setRoll(pilotSensor.getRoll());
         craftInformation.setPitch(pilotSensor.getPitch());
+        craftInformation.setPitchRate(pilotSensor.getPitchRate());
         craftInformation.setVerticalSpeed(pilotSensor.getVerticalSpeed());
 		SingletonCollection.getUserInterface().updateCraftInfo(craftInformation);
 	}
@@ -64,7 +65,7 @@ public class PlanePilot implements AutoPilot {
         CommandObject commandObject = CommandObject.getInstance();
 //		actionProcess.setPitchDegree(0f);
 		actionProcess.setHeadingDegree(craftInformation.getHeading());
-		actionProcess.setRollDegree(0f);
+//		actionProcess.setRollDegree(0f);
 		commandObject.getStblCommand().setStabilizeAileron(true);
 		commandObject.getStblCommand().setStabilizeElevator(true);
 		commandObject.getStblCommand().setStabilizeRudder(true);
