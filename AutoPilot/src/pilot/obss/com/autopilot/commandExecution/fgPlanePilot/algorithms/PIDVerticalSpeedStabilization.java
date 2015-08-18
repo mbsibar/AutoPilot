@@ -33,4 +33,10 @@ public class PIDVerticalSpeedStabilization extends PIDProcess {
 		}
 		/*actionProcess.setPitchDegree(output);*/
 	}
+
+	@Override
+	public void resetI() {
+		// TODO Auto-generated method stub
+		
+	}
 }

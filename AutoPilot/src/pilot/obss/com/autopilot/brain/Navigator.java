@@ -1,6 +1,7 @@
 package pilot.obss.com.autopilot.brain;
 
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 import pilot.obss.com.autopilot.util.SingletonCollection;
 import pilot.obss.com.autopilot.util.command.CommandObject;
@@ -36,7 +37,8 @@ public class Navigator implements Runnable {
 				Date endDate = new Date();
                 Double timeDiff = (endDate.getTime() - startDate.getTime()) * 0.001;
 				pilot.actionProcess.setHertz(timeDiff);
-                Thread.sleep(2);
+				TimeUnit.MILLISECONDS.sleep(20);
+//				TimeUnit.MICROSECONDS.sleep(500);
 			}
 		} catch (Exception e) {
 			SingletonCollection.getUserInterface().writeToTextView(e.getMessage());

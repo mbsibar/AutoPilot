@@ -12,22 +12,25 @@ import pilot.obss.com.autopilot.util.types.CraftInformation;
 import pilot.obss.com.autopilot.util.types.PIDObject;
 
 public class PIDAileronStabilization extends PIDProcess {
-	PIDController controller = new PIDController(1, 1, 1);
+	PIDController controller = new PIDController();
 
 	public PIDAileronStabilization(AlgorithmObject pidObject) {
 		super(pidObject);
-		controller.setOutputLimits(-90, 90);
-		controller.setSampleTime(10);
-		SingletonCollection.setPidController(controller);
 	}
 
 	@Override
 	public void execute(ActionProcess actionProcess, PilotSensor pilotSensor) {
 		if (CommandObject.getInstance().getStblCommand().isStabilizeAileron()) {
-			controller.SetTunings(SingletonCollection.getPIDObject().getP(), SingletonCollection.getPIDObject().getI(), SingletonCollection.getPIDObject().getD());
-			controller.setSetPoint(Settings.craftType.getAutoPilot().actionProcess.getRollDegree());
-			float d = new Double(controller.compute(-CraftInformation.getInstance().getRoll())).floatValue();
-			pilotSensor.setAileron(d);
+			controller.SetTunings(2.5f, 0f, SingletonCollection.getPIDObject().getD());
+//			controller.SetTunings(3.53f, 0.018f, 0f);
+			double compute = controller.compute(CraftInformation.getInstance().getRoll() - Settings.craftType.getAutoPilot().actionProcess.getAileronStickValue(), 1);
+			actionProcess.setRollDegree(new Double(compute).floatValue());
+			// actionProcess.setRollDegree(-actionProcess.getAileronStickValue());
 		}
+	}
+	
+	@Override
+	public void resetI() {
+		controller.reset_I();
 	}
 }

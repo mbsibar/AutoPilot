@@ -26,4 +26,10 @@ public class PIDThrottleStabilization extends PIDProcess {
             pilotSensor.setThrottle(output);
         }
 	}
+
+	@Override
+	public void resetI() {
+		// TODO Auto-generated method stub
+		
+	}
 }

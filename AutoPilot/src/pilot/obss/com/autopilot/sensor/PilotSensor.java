@@ -10,6 +10,12 @@ public interface PilotSensor {
 	
 	double getPitchRate();
 	
+	float getRudder();
+	
+	double getRudderRate();
+	
+	double getRollRate();
+	
 	float getAirSpeed();
 	
 	double getAltituteFt();

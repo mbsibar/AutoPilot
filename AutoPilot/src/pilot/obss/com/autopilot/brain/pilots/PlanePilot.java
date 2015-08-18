@@ -49,6 +49,8 @@ public class PlanePilot implements AutoPilot {
         craftInformation.setPitch(pilotSensor.getPitch());
         craftInformation.setPitchRate(pilotSensor.getPitchRate());
         craftInformation.setVerticalSpeed(pilotSensor.getVerticalSpeed());
+        craftInformation.setRudder(pilotSensor.getRudder());
+        craftInformation.setRudderRate(pilotSensor.getRudderRate());
 		SingletonCollection.getUserInterface().updateCraftInfo(craftInformation);
 	}
 

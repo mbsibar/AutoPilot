@@ -20,19 +20,19 @@ public class QuadCopterPilot implements AutoPilot {
 	private CraftInformation craftInformation = CraftInformation.getInstance();;
  	private boolean completed = false;
 	private WayPoint targetwayPoint = null;
-    private boolean stabilizationStarted = false;
-
+	private boolean stabilizationStarted = false;
+	
 	@Override
 	public void cycle() {
+		updateSensorList();
 		updatePlaneStatistics();
 		executeTarget();
 		for (PIDProcessList processList : PIDProcessList.getPIDPRocessList(CraftTypes.QUADCOPTER_X)) {
 			processList.execute(actionProcess, ApplicationCollection.getPilotSensor());
 		}
-        writeCraftData();
 	}
 
-    private void writeCraftData() {
+    private void updateSensorList() {
     	ApplicationCollection.getPilotSensor().updateSensorList();
     }
 
@@ -54,7 +54,11 @@ public class QuadCopterPilot implements AutoPilot {
         craftInformation.setRoll(pilotSensor.getRoll());
         craftInformation.setPitch(pilotSensor.getPitch());
         craftInformation.setPitchRate(pilotSensor.getPitchRate());
+        craftInformation.setRudder(pilotSensor.getRudder());
+        craftInformation.setRudderRate(pilotSensor.getRudderRate());
+        craftInformation.setRollRate(pilotSensor.getRollRate());
         craftInformation.setVerticalSpeed(pilotSensor.getVerticalSpeed());
+        CraftInformation.getInstance().setResetMotorLastSpeeds();
 		SingletonCollection.getUserInterface().updateCraftInfo(craftInformation);
 	}
 

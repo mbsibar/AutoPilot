@@ -11,9 +11,13 @@ public class CraftInformation {
     private float heading;
     private float roll;
     private float pitch;
+    private float rudder;
     private double pitchRate;
+    private double rollRate;
     private double altitudeFt;
     private float verticalSpeed;
+    private double rudderRate;
+    private boolean rotateEnabled;
 
     private float motor1 = 1500;
     private float motor2 = 1500;
@@ -82,12 +86,36 @@ public class CraftInformation {
         this.pitch = pitch;
     }
     
-    public double getPitchRate() {
+    public float getRudder() {
+		return heading;
+	}
+
+	public void setRudder(float rudder) {
+		this.rudder = rudder;
+	}
+	
+	public double getPitchRate() {
 		return pitchRate;
 	}
 
 	public void setPitchRate(double pitchRate) {
 		this.pitchRate = pitchRate;
+	}
+	
+	public double getRudderRate() {
+		return rudderRate;
+	}
+
+	public void setRudderRate(double rudderRate) {
+		this.rudderRate = rudderRate;
+	}
+
+	public double getRollRate() {
+		return rollRate;
+	}
+
+	public void setRollRate(double rollRate) {
+		this.rollRate = rollRate;
 	}
 
 	public double getAltitudeFt() {
@@ -173,4 +201,13 @@ public class CraftInformation {
     public void setElevator(float elevator) {
         this.elevator = elevator;
     }
+
+	public boolean isRotateEnabled() {
+		return rotateEnabled;
+	}
+
+	public void setRotateEnabled(boolean rotateEnabled) {
+		this.rotateEnabled = rotateEnabled;
+	}
+    
 }

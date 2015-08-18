@@ -3,141 +3,90 @@ package pilot.obss.com.autopilot.util;
 import java.util.Date;
 
 public class PIDController {
-	double myOutput = 0;
-	double mySetPoint = 0;
-	double sampleTime = 100;
-	double lastTime = 0;
-	double lastInput = 0;
+	private long _last_t = 0;
+	private float _last_derivative = 0;
+	private float _last_error = 0;
+	private float _integrator = 0;
+	private float _kp = 0;
+	private float _kd = 0;
+	private float _ki = 0;
+	private float _fCut = 20;
+	private float _imax = 50;
 
-	double outMax = 0;
-	double outMin = 0;
+	public double compute(float error, float scaler) {
+		long tnow = new Date().getTime();
+		long dt = tnow - _last_t;
+		float output = 0;
+		float delta_time;
 
-	int iSize = 10000;
-	double[] ITerm = new double[iSize];;
-	int it = 0;
-
-	double kp = 0;
-	double ki = 0;
-	double kd = 0;
-
-	public PIDController(double kP, double kI, double kD) {
-		this.kp = kP;
-		this.ki = kI;
-		this.kd = kD;
-		lastTime = new Date().getTime() - sampleTime;
-	}
-
-	public void addToITerm(double error){
-		ITerm[it] = error;
-		it++;
-		if(it>=iSize){
-			it = 0;
+		if (_last_t == 0 || dt > 1000) {
+			dt = 0;
+			// if this PID hasn't been used for a full second then zero
+			// the intergator term. This prevents I buildup from a
+			// previous fight mode from causing a massive return before
+			// the integrator gets a chance to correct itself
+//			reset_I();
 		}
-	}
-	
-	public double getISum(){
-		double sum = 0;
-		for(int i = 0; i<iSize; i++){
-			sum += ITerm[i];
-		}
-		return sum;
-	}
-	
-	public double compute(double myInput) {
+		_last_t = tnow;
 
-		double now = new Date().getTime();
-		double timeChange = (now - lastTime);
+		delta_time = (float) dt / 1000.0f; 
+		// Compute proportional component
+		
+		output += error * _kp;
+		// Compute derivative component if time has elapsed
+		if ((dt > 2)) {
+			float derivative;
 
-		if (timeChange >= sampleTime) {
-			double input = myInput;
-			double error = mySetPoint - input;
-			addToITerm((ki * error));
+			// if (_last_derivative == 0) {
+			// // we've just done a reset, suppress the first derivative
+			// // term as we don't want a sudden change in input to cause
+			// // a large D output change
+			// derivative = 0;
+			// _last_derivative = 0;
+			// } else {
+			derivative = (error - _last_error) / delta_time;
+			// }
+
+			// discrete low pass filter, cuts out the
+			// high frequency noise that can drive the controller crazy
+			float RC = 1f / (2f * new Double(Math.PI).floatValue() * _fCut);
 			
-			double ITermSum = getISum();
-			if (ITermSum > outMax)
-				ITermSum = outMax;
-			else if (ITermSum < outMin)
-				ITermSum = outMin;
-			double dInput = (input - lastInput);
+			derivative = _last_derivative + ((delta_time / (RC + delta_time)) * (derivative - _last_derivative));
+			// update state
+			_last_error = error;
+			_last_derivative = derivative;
 
-			/* Compute PID Output */
-			double output = kp * error + ITermSum - kd * dInput;
-
-			if (output > outMax)
-				output = outMax;
-			else if (output < outMin)
-				output = outMin;
-			myOutput = output;
-
-			/* Remember some variables for next time */
-			lastInput = input;
-			lastTime = now;
+			// add in derivative component
+			output += _kd * derivative;
 		}
-		return myOutput;
-	}
+		
 
-	public void SetTunings(double Kp, double Ki, double Kd) {
-		if (Kp < 0 || Ki < 0 || Kd < 0)
-			return;
+		// scale the P and D components
+		output *= scaler;
 
-		double SampleTimeInSec = ((double) sampleTime) / 1000;
-		kp = Kp;
-		ki = Ki * SampleTimeInSec;
-		kd = Kd / SampleTimeInSec;
-
-	}
-	
-	
-
-	public void setSampleTime(int newSampleTime) {
-		if (newSampleTime > 0) {
-			double ratio = (double) newSampleTime / (double) sampleTime;
-			ki *= ratio;
-			kd /= ratio;
-			sampleTime = (long) newSampleTime;
+		// Compute integral component if time has elapsed
+		if ((Math.abs(_ki) > 0) && (dt > 0)) {
+			_integrator += (error * _ki)* scaler * delta_time ;  
+			if (_integrator < -_imax) {
+				_integrator = -_imax;
+			} else if (_integrator > _imax) {
+				_integrator = _imax;
+			}
+			output += _integrator;
 		}
+
+		return output;
 	}
 
-	public void setOutputLimits(double min, double max) {
-		if (min >= max)
-			return;
-		outMin = min;
-		outMax = max;
-
-		if (myOutput > outMax)
-			myOutput = outMax;
-		else if (myOutput < outMin)
-			myOutput = outMin;
-
-//		if (ITerm > outMax)
-//			ITerm = outMax;
-//		else if (ITerm < outMin)
-//			ITerm = outMin;
+	public void reset_I() {
+		_integrator = 0;
+		// we use NAN (Not A Number) to indicate that the last derivative value
+		// is not valid
 	}
 
-	public void initialize() {
-//		ITerm = myOutput;
-		lastInput = 0;
-//		if (ITerm > outMax)
-//			ITerm = outMax;
-//		else if (ITerm < outMin)
-//			ITerm = outMin;
+	public void SetTunings(float Kp, float Ki, float Kd) {
+		_kp = Kp;
+		_ki = Ki;
+		_kd = Kd;
 	}
-
-	public double GetKp() {
-		return kp;
-	}
-
-	public double getKi() {
-		return ki;
-	}
-
-	public double getKd() {
-		return kd;
-	}
-
-	public void setSetPoint(double setpoint) {
-		this.mySetPoint = setpoint;
-	}
-
 }

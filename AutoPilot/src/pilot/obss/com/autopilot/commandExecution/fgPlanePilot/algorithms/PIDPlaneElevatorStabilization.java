@@ -12,7 +12,7 @@ import pilot.obss.com.autopilot.util.types.CraftInformation;
 
 public class PIDPlaneElevatorStabilization extends PIDProcess {
 
-	PIDController controller = new PIDController(0.5, 0.5, 5);
+//	PIDController controller = new PIDController(0.5, 0.5, 5);
 
 	public PIDPlaneElevatorStabilization(AlgorithmObject pidObject) {
 		super(pidObject);
@@ -36,5 +36,11 @@ public class PIDPlaneElevatorStabilization extends PIDProcess {
 //				controller.SetMode(0);
 //			}
 		}
+	}
+
+	@Override
+	public void resetI() {
+		// TODO Auto-generated method stub
+		
 	}
 }
