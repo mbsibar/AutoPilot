@@ -17,12 +17,9 @@ public class CraftInformation {
     private double altitudeFt;
     private float verticalSpeed;
     private double rudderRate;
-    private boolean rotateEnabled;
-
-    private float motor1 = 1500;
-    private float motor2 = 1500;
-    private float motor3 = 1500;
-    private float motor4 = 1500;
+    private double gyroCalRoll;
+    private double gyroCalPitch;
+    private double gyroCalYaw;
 
     private float aileron = 90;
     private float elevator = 90;
@@ -95,7 +92,7 @@ public class CraftInformation {
 	}
 	
 	public double getPitchRate() {
-		return pitchRate;
+		return pitchRate - gyroCalPitch;
 	}
 
 	public void setPitchRate(double pitchRate) {
@@ -103,7 +100,7 @@ public class CraftInformation {
 	}
 	
 	public double getRudderRate() {
-		return rudderRate;
+		return rudderRate - gyroCalYaw;
 	}
 
 	public void setRudderRate(double rudderRate) {
@@ -111,7 +108,7 @@ public class CraftInformation {
 	}
 
 	public double getRollRate() {
-		return rollRate;
+		return rollRate - gyroCalRoll;
 	}
 
 	public void setRollRate(double rollRate) {
@@ -132,49 +129,6 @@ public class CraftInformation {
 
     public void setVerticalSpeed(float verticalSpeed) {
         this.verticalSpeed = verticalSpeed;
-    }
-
-    public float getMotor1() {
-        return motor1;
-    }
-
-    public void setMotor1(float motor1) {
-//        this.motor1 = getPwmValue(motor1);
-    	this.motor1 = motor1;
-    }
-
-    public float getMotor2() {
-        return motor2;
-    }
-
-    public void setMotor2(float motor2) {
-    	this.motor2 = motor2;
-//        this.motor2 = getPwmValue(motor2);
-    }
-
-    public float getMotor3() {
-        return motor3;
-    }
-
-    public void setMotor3(float motor3) {
-    	this.motor3 = motor3;
-//        this.motor3 = getPwmValue(motor3);
-    }
-
-    public float getMotor4() {
-        return motor4;
-    }
-
-    public void setMotor4(float motor4) {
-//        this.motor4 = getPwmValue(motor4);
-    	this.motor4 = motor4;
-    }
-
-    public void setResetMotorLastSpeeds() {
-        motor1 = 0;
-        motor2 = 0;
-        motor3 = 0;
-        motor4 = 0;
     }
 
     private float getPwmValue(float motor) {
@@ -202,12 +156,28 @@ public class CraftInformation {
         this.elevator = elevator;
     }
 
-	public boolean isRotateEnabled() {
-		return rotateEnabled;
+	public double getGyroCalRoll() {
+		return gyroCalRoll;
 	}
 
-	public void setRotateEnabled(boolean rotateEnabled) {
-		this.rotateEnabled = rotateEnabled;
+	public void setGyroCalRoll(double gyroCalRoll) {
+		this.gyroCalRoll = gyroCalRoll;
+	}
+
+	public double getGyroCalPitch() {
+		return gyroCalPitch;
+	}
+
+	public void setGyroCalPitch(double gyroCalPitch) {
+		this.gyroCalPitch = gyroCalPitch;
+	}
+
+	public double getGyroCalYaw() {
+		return gyroCalYaw;
+	}
+
+	public void setGyroCalYaw(double gyroCalYaw) {
+		this.gyroCalYaw = gyroCalYaw;
 	}
     
 }

@@ -2,10 +2,13 @@ package pilot.obss.com.autopilot.brain.pilots;
 
 import pilot.obss.com.android.util.ApplicationCollection;
 import pilot.obss.com.autopilot.brain.AutoPilot;
+import pilot.obss.com.autopilot.commandExecution.OrientationCommand;
 import pilot.obss.com.autopilot.commandExecution.fgPlanePilot.PIDProcessList;
 import pilot.obss.com.autopilot.sensor.PilotSensor;
+import pilot.obss.com.autopilot.util.PIDValues;
 import pilot.obss.com.autopilot.util.SingletonCollection;
 import pilot.obss.com.autopilot.util.command.CommandObject;
+import pilot.obss.com.autopilot.util.constants.Constants;
 import pilot.obss.com.autopilot.util.constants.QuadcopterConstants;
 import pilot.obss.com.autopilot.util.types.CLIMBTYPE;
 import pilot.obss.com.autopilot.util.types.CraftInformation;
@@ -18,10 +21,11 @@ import pilot.obss.com.autopilot.util.types.WayPoint;
 public class QuadCopterPilot implements AutoPilot {
 	private QuadcopterConstants planeConstants = new QuadcopterConstants();
 	private CraftInformation craftInformation = CraftInformation.getInstance();;
+	private OrientationCommand orientationCommand = SingletonCollection.getOrientationCommand();
  	private boolean completed = false;
 	private WayPoint targetwayPoint = null;
 	private boolean stabilizationStarted = false;
-	
+
 	@Override
 	public void cycle() {
 		updateSensorList();
@@ -58,7 +62,7 @@ public class QuadCopterPilot implements AutoPilot {
         craftInformation.setRudderRate(pilotSensor.getRudderRate());
         craftInformation.setRollRate(pilotSensor.getRollRate());
         craftInformation.setVerticalSpeed(pilotSensor.getVerticalSpeed());
-        CraftInformation.getInstance().setResetMotorLastSpeeds();
+        PIDValues.resetMotorSpeeds();
 		SingletonCollection.getUserInterface().updateCraftInfo(craftInformation);
 	}
 
@@ -73,9 +77,9 @@ public class QuadCopterPilot implements AutoPilot {
 
 	private void startStabilization() {
         CommandObject commandObject = CommandObject.getInstance();
-		actionProcess.setPitchDegree(0f);
+//        orientationCommand.setElevator(0f);
 		actionProcess.setHeadingDegree(craftInformation.getHeading());
-		actionProcess.setRollDegree(0f);
+//		orientationCommand.setAileron(0f);;
 		commandObject.getStblCommand().setStabilizeAileron(true);
 		commandObject.getStblCommand().setStabilizeElevator(true);
 		commandObject.getStblCommand().setStabilizeRudder(true);
@@ -95,34 +99,34 @@ public class QuadCopterPilot implements AutoPilot {
 
 	@Override
 	public void calculateActionProcess(TURN_TYPES turnType, float turnDegree) {
-		if (TURN_TYPES.LEFT.equals(turnType)) {
-            CommandObject commandObject = CommandObject.getInstance();
-			actionProcess.setRollDegree(-turnDegree);
-			actionProcess.setPitchDegree(turnDegree / planeConstants.getTurnPitchMultiplier());
-			actionProcess.setHeadingDegree(0f);
-			commandObject.getStblCommand().setStabilizeAileron(true);
-			commandObject.getStblCommand().setStabilizeElevator(true);
-			commandObject.getStblCommand().setStabilizeAirSpeed(true);
-			commandObject.getStblCommand().setStabilizeRudder(false);
-		} else if (TURN_TYPES.RIGHT.equals(turnType)) {
-            CommandObject commandObject = CommandObject.getInstance();
-			actionProcess.setRollDegree(turnDegree);
-			actionProcess.setPitchDegree(turnDegree / planeConstants.getTurnPitchMultiplier());
-			actionProcess.setHeadingDegree(0f);
-			commandObject.getStblCommand().setStabilizeAileron(true);
-			commandObject.getStblCommand().setStabilizeElevator(true);
-			commandObject.getStblCommand().setStabilizeAirSpeed(true);
-			commandObject.getStblCommand().setStabilizeRudder(false);
-		} else if (TURN_TYPES.STABLE.equals(turnType)) {
-            CommandObject commandObject = CommandObject.getInstance();
-			actionProcess.setRollDegree(0f);
-			actionProcess.setPitchDegree(0f);
-			actionProcess.setHeadingDegree(craftInformation.getHeading());
-			commandObject.getStblCommand().setStabilizeAileron(true);
-			commandObject.getStblCommand().setStabilizeElevator(true);
-			commandObject.getStblCommand().setStabilizeRudder(true);
-			commandObject.getStblCommand().setStabilizeAirSpeed(true);
-		}
+//		if (TURN_TYPES.LEFT.equals(turnType)) {
+//            CommandObject commandObject = CommandObject.getInstance();
+//            orientationCommand.setAileron(-turnDegree);
+//            orientationCommand.setElevator(turnDegree / planeConstants.getTurnPitchMultiplier());
+//			actionProcess.setHeadingDegree(0f);
+//			commandObject.getStblCommand().setStabilizeAileron(true);
+//			commandObject.getStblCommand().setStabilizeElevator(true);
+//			commandObject.getStblCommand().setStabilizeAirSpeed(true);
+//			commandObject.getStblCommand().setStabilizeRudder(false);
+//		} else if (TURN_TYPES.RIGHT.equals(turnType)) {
+//            CommandObject commandObject = CommandObject.getInstance();
+//            orientationCommand.setAileron(turnDegree);
+//            orientationCommand.setElevator(turnDegree / planeConstants.getTurnPitchMultiplier());
+//			actionProcess.setHeadingDegree(0f);
+//			commandObject.getStblCommand().setStabilizeAileron(true);
+//			commandObject.getStblCommand().setStabilizeElevator(true);
+//			commandObject.getStblCommand().setStabilizeAirSpeed(true);
+//			commandObject.getStblCommand().setStabilizeRudder(false);
+//		} else if (TURN_TYPES.STABLE.equals(turnType)) {
+//            CommandObject commandObject = CommandObject.getInstance();
+//            orientationCommand.setAileron(0f);
+//            orientationCommand.setElevator(0f);
+//			actionProcess.setHeadingDegree(craftInformation.getHeading());
+//			commandObject.getStblCommand().setStabilizeAileron(true);
+//			commandObject.getStblCommand().setStabilizeElevator(true);
+//			commandObject.getStblCommand().setStabilizeRudder(true);
+//			commandObject.getStblCommand().setStabilizeAirSpeed(true);
+//		}
 	}
 
 	@Override

@@ -1,16 +1,16 @@
 package pilot.obss.com.autopilot.util;
 
+import pilot.obss.com.autopilot.brain.Navigator;
 import pilot.obss.com.autopilot.commandExecution.OrientationCommand;
-import pilot.obss.com.autopilot.util.types.PIDComClass;
 import pilot.obss.com.autopilot.util.types.UserInterface;
 
 public class SingletonCollection {
     private static UserInterface userInterface;
-    private static PIDController pidController;
-    private static PIDComClass pid = new PIDComClass();
+    private static PIDController5 pidController;
     private static PIDTunings pidTunings = new PIDTunings();
     private static StickValues stickValues = new StickValues();
     private static OrientationCommand orientationCommand = new OrientationCommand();
+    private static Navigator navigator = null;
     
     private static boolean started = false;
 
@@ -24,24 +24,14 @@ public class SingletonCollection {
         return userInterface;
     }
 
-    public static void setPidController(PIDController newController) {
+    public static void setPidController(PIDController5 newController) {
         if (pidController == null) {
             pidController = newController;
         }
     }
 
-    public static PIDController getPidController() {
+    public static PIDController5 getPidController() {
         return pidController;
-    }
-
-    public static void setPIDObject(PIDComClass newPidObject) {
-        if (pid == null) {
-            pid = newPidObject;
-        }
-    }
-
-    public static PIDComClass getPIDObject() {
-        return pid;
     }
 
     public static void setStarted(boolean bool) {
@@ -80,5 +70,15 @@ public class SingletonCollection {
 
     public static OrientationCommand getOrientationCommand() {
         return orientationCommand;
+    }
+    
+    public static void setNavigator(Navigator newNavigator) {
+        if (navigator == null) {
+        	navigator = newNavigator;
+        }
+    }
+
+    public static Navigator getNavigator() {
+        return navigator;
     }
 }

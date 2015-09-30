@@ -11,7 +11,6 @@ import pilot.obss.com.autopilot.commandExecution.fgPlanePilot.algorithms.PIDPlan
 import pilot.obss.com.autopilot.commandExecution.fgPlanePilot.algorithms.PIDRateAileronStabilization;
 import pilot.obss.com.autopilot.commandExecution.fgPlanePilot.algorithms.PIDRateElevatorStabilization;
 import pilot.obss.com.autopilot.commandExecution.fgPlanePilot.algorithms.PIDRateRudderStabilization;
-import pilot.obss.com.autopilot.commandExecution.fgPlanePilot.algorithms.PIDRudderStabilization;
 import pilot.obss.com.autopilot.sensor.PilotSensor;
 import pilot.obss.com.autopilot.util.ActionProcess;
 import pilot.obss.com.autopilot.util.types.CraftTypes;
@@ -30,10 +29,10 @@ public enum PIDProcessList {
     QC_ELEVATOR(new PIDElevatorStabilization(ArduinoPIDConstants.qcElevatorPid), true, CraftTypes.QUADCOPTER_X),
     QC_RATE_ELEVATOR(new PIDRateElevatorStabilization(ArduinoPIDConstants.qcElevatorRatePid), true, CraftTypes.QUADCOPTER_X),
     QC_RATE_AILERON(new PIDRateAileronStabilization(ArduinoPIDConstants.qcAileronRatePid), true, CraftTypes.QUADCOPTER_X),
-    QC_RUDDER(new PIDRudderStabilization(ArduinoPIDConstants.qcRudderPid), true, CraftTypes.QUADCOPTER_X),
+//    QC_RUDDER(new PIDRudderStabilization(ArduinoPIDConstants.qcRudderPid), true, CraftTypes.QUADCOPTER_X);
     QC_RATE_RUDDER(new PIDRateRudderStabilization(ArduinoPIDConstants.qcAileronRatePid), true, CraftTypes.QUADCOPTER_X);
-   /* QC_THROTTLE(new PIDThrottleStabilization(ArduinoPIDConstants.qcThrottlePid), true, CraftTypes.QUADCOPTER_X),
-    QC_ALTITUDE(new PIDVerticalSpeedStabilization(ArduinoPIDConstants.qcVerticalSpeedPid), true, CraftTypes.QUADCOPTER_X);*/
+//    QC_THROTTLE(new PIDThrottleStabilization(ArduinoPIDConstants.qcThrottlePid), true, CraftTypes.QUADCOPTER_X),
+//    QC_ALTITUDE(new PIDVerticalSpeedStabilization(ArduinoPIDConstants.qcVerticalSpeedPid), true, CraftTypes.QUADCOPTER_X);*/
 
   /*  AILERON(new PIDAileronStabilization(FGPIDConstants.planeAileronPid), true),
     ELEVATOR(new PIDElevatorStabilization(FGPIDConstants.planeElevatorPid), true),

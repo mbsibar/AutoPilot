@@ -3,9 +3,11 @@ package pilot.obss.com.autopilot.brain;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
+import pilot.obss.com.android.util.ApplicationCollection;
 import pilot.obss.com.autopilot.util.SingletonCollection;
 import pilot.obss.com.autopilot.util.command.CommandObject;
 import pilot.obss.com.autopilot.util.command.UserCommandType;
+import pilot.obss.com.autopilot.util.constants.Constants;
 import pilot.obss.com.autopilot.util.types.CLIMBTYPE;
 import pilot.obss.com.autopilot.util.types.CraftInformation;
 import pilot.obss.com.autopilot.util.types.StabilizationType;
@@ -14,7 +16,8 @@ import pilot.obss.com.autopilot.util.types.TURN_TYPES;
 public class Navigator implements Runnable {
 	private AutoPilot pilot;
 	private CommandObject command;
-
+	public boolean executed = false;
+	
 	public Navigator(AutoPilot pilot) {
 		this.pilot = pilot;
 		this.command = CommandObject.getInstance();
@@ -24,21 +27,32 @@ public class Navigator implements Runnable {
 		command.getMission().addNewLocation(new GpsLocation(37.59358315f, -122.28306915f, 1000d));*/
 	}
 
-	// PlanePilot'a stabilize, turn45DegreeLeft vs. gibi komutlar g�nder. Buras� navigator b�l�m�. Otopilot kendi i�ine bakacak. Navigator ne yapmas� gerekti�ini s�yleecek.
+	long startTime = 0l;
+	long startTimeInMillis = 0l;
+
+	// PlanePilot'a stabilize, turn45DegreeLeft vs. gibi komutlar g�nder.
+	// Buras� navigator b�l�m�. Otopilot kendi i�ine bakacak.
+	// Navigator ne yapmas� gerekti�ini s�yleecek.
 	@Override
 	public void run() {
 		try {
 			while (true) {
-                Date startDate = new Date();
+				while(System.nanoTime() - startTime < 4200000f){
+					TimeUnit.NANOSECONDS.sleep(100);
+				}
+				Constants.loopTimer = (new Date().getTime() - startTimeInMillis)/1000f;
+//				Thread.sleep(2);
+				Date startDate = new Date();
 				if (command.getUserCommand() != null) {
 					executeUserCommand();
 				}
 				pilot.cycle();
+				this.executed = true;
 				Date endDate = new Date();
                 Double timeDiff = (endDate.getTime() - startDate.getTime()) * 0.001;
 				pilot.actionProcess.setHertz(timeDiff);
-				TimeUnit.MILLISECONDS.sleep(20);
-//				TimeUnit.MICROSECONDS.sleep(500);
+				startTime = System.nanoTime();
+				startTimeInMillis = new Date().getTime();
 			}
 		} catch (Exception e) {
 			SingletonCollection.getUserInterface().writeToTextView(e.getMessage());

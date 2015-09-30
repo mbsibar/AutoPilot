@@ -4,31 +4,34 @@ import pilot.obss.com.autopilot.commandExecution.PIDProcess;
 import pilot.obss.com.autopilot.sensor.PilotSensor;
 import pilot.obss.com.autopilot.util.ActionProcess;
 import pilot.obss.com.autopilot.util.PIDController;
-import pilot.obss.com.autopilot.util.SingletonCollection;
 import pilot.obss.com.autopilot.util.command.CommandObject;
-import pilot.obss.com.autopilot.util.constants.Settings;
 import pilot.obss.com.autopilot.util.types.AlgorithmObject;
-import pilot.obss.com.autopilot.util.types.CraftInformation;
-import pilot.obss.com.autopilot.util.types.PIDObject;
 
 public class PIDAileronStabilization extends PIDProcess {
-	PIDController controller = new PIDController();
+	PIDController controller = new PIDController(1, 1, 1, 1, 1, 1);
 
 	public PIDAileronStabilization(AlgorithmObject pidObject) {
 		super(pidObject);
 	}
 
+	long lastTime = 0;
+	float information = 0;
+
 	@Override
 	public void execute(ActionProcess actionProcess, PilotSensor pilotSensor) {
-		if (CommandObject.getInstance().getStblCommand().isStabilizeAileron()) {
-			controller.SetTunings(2.5f, 0f, SingletonCollection.getPIDObject().getD());
-//			controller.SetTunings(3.53f, 0.018f, 0f);
-			double compute = controller.compute(CraftInformation.getInstance().getRoll() - Settings.craftType.getAutoPilot().actionProcess.getAileronStickValue(), 1);
-			actionProcess.setRollDegree(new Double(compute).floatValue());
-			// actionProcess.setRollDegree(-actionProcess.getAileronStickValue());
+		if (CommandObject.getInstance().getStblCommand().isStabilizeAileron() && (System.nanoTime() - lastTime) / 1000000f > 4) {
+			lastTime = System.nanoTime();
+			float error = -1 * 4.5f * (craftInformation.getRoll() - stickValues.getAileron());
+			if (error > 5000) {
+				error = 5000;
+			} else if (error < -5000) {
+				error = -5000;
+			}
+			orientationCommand.setAileron(error);
+//			orientationCommand.setAileron(stickValues.getAileron());
 		}
 	}
-	
+
 	@Override
 	public void resetI() {
 		controller.reset_I();

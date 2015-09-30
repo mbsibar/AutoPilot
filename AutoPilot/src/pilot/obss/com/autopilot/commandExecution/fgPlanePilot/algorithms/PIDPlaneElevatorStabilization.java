@@ -3,7 +3,7 @@ package pilot.obss.com.autopilot.commandExecution.fgPlanePilot.algorithms;
 import pilot.obss.com.autopilot.commandExecution.PIDProcess;
 import pilot.obss.com.autopilot.sensor.PilotSensor;
 import pilot.obss.com.autopilot.util.ActionProcess;
-import pilot.obss.com.autopilot.util.PIDController;
+import pilot.obss.com.autopilot.util.PIDController5;
 import pilot.obss.com.autopilot.util.SingletonCollection;
 import pilot.obss.com.autopilot.util.command.CommandObject;
 import pilot.obss.com.autopilot.util.constants.Settings;
