@@ -8,6 +8,8 @@ public interface PilotSensor {
 
 	float getPitch();
 	
+	float getGravity();
+	
 	double getPitchRate();
 	
 	float getRudder();

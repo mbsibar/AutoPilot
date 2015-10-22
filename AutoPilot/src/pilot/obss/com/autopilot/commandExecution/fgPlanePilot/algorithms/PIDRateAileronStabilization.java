@@ -67,7 +67,7 @@ public class PIDRateAileronStabilization extends PIDProcess {
 			
 //			if(stickValues.getThrottle()>45){
 //				System.out.println(rollRate * 57.14f + "\t" + rollRate*57.14f + "\t" +craftInformation.getRollRate()*57.14f + "\t" + craftInformation.getRoll() + "\t" + orientationCommand.getAileron() +  "\t" + (p + i + d)) ;
-				System.out.println(craftInformation.getRoll() + "\t" + rollRate *57.14f) ;
+//				System.out.println(craftInformation.getRoll() + "\t" + rollRate *57.14f) ;
 //				System.out.println(stickValues.getThrottle() + "\t" + stickValues.getThrottleRaw());
 //			}
 		}

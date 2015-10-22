@@ -4,13 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import pilot.obss.com.autopilot.commandExecution.PIDProcess;
-import pilot.obss.com.autopilot.commandExecution.fgPlanePilot.algorithms.PIDAileronStabilization;
-import pilot.obss.com.autopilot.commandExecution.fgPlanePilot.algorithms.PIDElevatorStabilization;
+import pilot.obss.com.autopilot.commandExecution.fgPlanePilot.algorithms.PIDAltitudeStabilization;
 import pilot.obss.com.autopilot.commandExecution.fgPlanePilot.algorithms.PIDPlaneAileronStabilization;
 import pilot.obss.com.autopilot.commandExecution.fgPlanePilot.algorithms.PIDPlaneElevatorStabilization;
-import pilot.obss.com.autopilot.commandExecution.fgPlanePilot.algorithms.PIDRateAileronStabilization;
-import pilot.obss.com.autopilot.commandExecution.fgPlanePilot.algorithms.PIDRateElevatorStabilization;
-import pilot.obss.com.autopilot.commandExecution.fgPlanePilot.algorithms.PIDRateRudderStabilization;
 import pilot.obss.com.autopilot.sensor.PilotSensor;
 import pilot.obss.com.autopilot.util.ActionProcess;
 import pilot.obss.com.autopilot.util.types.CraftTypes;
@@ -25,12 +21,13 @@ public enum PIDProcessList {
     DW_AILERON(new PIDPlaneAileronStabilization(ArduinoPIDConstants.dwAileronPid), true, CraftTypes.DELTAWING),
     DW_ELEVATOR(new PIDPlaneElevatorStabilization(ArduinoPIDConstants.dwElevatorPid), true, CraftTypes.DELTAWING),
 
-    QC_AILERON(new PIDAileronStabilization(ArduinoPIDConstants.qcAileronPid), true, CraftTypes.QUADCOPTER_X),
-    QC_ELEVATOR(new PIDElevatorStabilization(ArduinoPIDConstants.qcElevatorPid), true, CraftTypes.QUADCOPTER_X),
-    QC_RATE_ELEVATOR(new PIDRateElevatorStabilization(ArduinoPIDConstants.qcElevatorRatePid), true, CraftTypes.QUADCOPTER_X),
-    QC_RATE_AILERON(new PIDRateAileronStabilization(ArduinoPIDConstants.qcAileronRatePid), true, CraftTypes.QUADCOPTER_X),
+    QC_RATE_ALTITIUDE(new PIDAltitudeStabilization(ArduinoPIDConstants.qcAltitudePid), true, CraftTypes.QUADCOPTER_X);
+//    QC_AILERON(new PIDAileronStabilization(ArduinoPIDConstants.qcAileronPid), true, CraftTypes.QUADCOPTER_X),
+//    QC_ELEVATOR(new PIDElevatorStabilization(ArduinoPIDConstants.qcElevatorPid), true, CraftTypes.QUADCOPTER_X),
+//    QC_RATE_ELEVATOR(new PIDRateElevatorStabilization(ArduinoPIDConstants.qcElevatorRatePid), true, CraftTypes.QUADCOPTER_X),
+//    QC_RATE_AILERON(new PIDRateAileronStabilization(ArduinoPIDConstants.qcAileronRatePid), true, CraftTypes.QUADCOPTER_X),
 //    QC_RUDDER(new PIDRudderStabilization(ArduinoPIDConstants.qcRudderPid), true, CraftTypes.QUADCOPTER_X);
-    QC_RATE_RUDDER(new PIDRateRudderStabilization(ArduinoPIDConstants.qcAileronRatePid), true, CraftTypes.QUADCOPTER_X);
+//    QC_RATE_RUDDER(new PIDRateRudderStabilization(ArduinoPIDConstants.qcAileronRatePid), true, CraftTypes.QUADCOPTER_X);
 //    QC_THROTTLE(new PIDThrottleStabilization(ArduinoPIDConstants.qcThrottlePid), true, CraftTypes.QUADCOPTER_X),
 //    QC_ALTITUDE(new PIDVerticalSpeedStabilization(ArduinoPIDConstants.qcVerticalSpeedPid), true, CraftTypes.QUADCOPTER_X);*/
 

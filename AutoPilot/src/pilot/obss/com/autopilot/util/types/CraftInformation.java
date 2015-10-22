@@ -20,6 +20,7 @@ public class CraftInformation {
     private double gyroCalRoll;
     private double gyroCalPitch;
     private double gyroCalYaw;
+    private float gravity;
 
     private float aileron = 90;
     private float elevator = 90;
@@ -179,5 +180,13 @@ public class CraftInformation {
 	public void setGyroCalYaw(double gyroCalYaw) {
 		this.gyroCalYaw = gyroCalYaw;
 	}
-    
+
+	public float getGravity() {
+		return gravity;
+	}
+
+	public void setGravity(float gravity) {
+		this.gravity = gravity;
+	}
+	
 }

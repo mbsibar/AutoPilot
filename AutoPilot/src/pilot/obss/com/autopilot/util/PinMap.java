@@ -7,6 +7,8 @@ public enum PinMap {
 	MOTOR2(4, ScaleFactorConstants.MOTOR2, PinMode.OUTPUT),
 	MOTOR3(17, ScaleFactorConstants.MOTOR3, PinMode.OUTPUT),
 	MOTOR4(27, ScaleFactorConstants.MOTOR4, PinMode.OUTPUT),
+	THURSTOUT(2, ScaleFactorConstants.THROTTLE_OUT, PinMode.OUTPUT),
+	
 	
 	/*AILERON_OUT(4, ScaleFactorConstants.AILERON_OUT, PinMode.OUTPUT),
 	ELEVATOR_OUT(17, ScaleFactorConstants.ELEVATOR_OUT, PinMode.OUTPUT),
@@ -21,7 +23,7 @@ public enum PinMap {
 //	RUDDER(19, ScaleFactorConstants.RUDDER, PinMode.INPUT),
 //	ELEVATOR(5, ScaleFactorConstants.ELEVATOR, PinMode.INPUT),
 //	AILERON(21, ScaleFactorConstants.AILERON, PinMode.INPUT),
-//	MODE(13, ScaleFactorConstants.MODE, PinMode.INPUT);
+	MODE(13, ScaleFactorConstants.MODE, PinMode.INPUT),
 	
 	THROTTLE(0, ScaleFactorConstants.THROTTLE, PinMode.INPUT),
 	RUDDER(1, ScaleFactorConstants.RUDDER, PinMode.INPUT),

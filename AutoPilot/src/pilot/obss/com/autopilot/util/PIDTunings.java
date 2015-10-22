@@ -7,4 +7,5 @@ public class PIDTunings {
 	public PIDTuning aileronRatePID = new PIDTuning();
 	public PIDTuning elevatorRatePID = new PIDTuning();
 	public PIDTuning rudderRatePID = new PIDTuning();
+	public PIDTuning thrustPID = new PIDTuning();
 }
