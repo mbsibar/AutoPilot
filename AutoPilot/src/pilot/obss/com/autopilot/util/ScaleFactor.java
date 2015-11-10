@@ -7,7 +7,7 @@ import pilot.obss.com.autopilot.util.types.CraftTypes;
 public enum ScaleFactor {
 	QC_AILERON_STICK(1100, 1947, -50, 50, CraftTypes.QUADCOPTER_X, ScaleFactorConstants.AILERON),
 	QC_ELEVATOR_STICK(1083, 1922, -50, 50, CraftTypes.QUADCOPTER_X, ScaleFactorConstants.ELEVATOR),
-	QC_THROTTLE_STICK(1040, 1937, 0, 180, CraftTypes.QUADCOPTER_X, ScaleFactorConstants.THROTTLE),
+	QC_THROTTLE_STICK(1040, 1937, -10, 10, CraftTypes.QUADCOPTER_X, ScaleFactorConstants.THROTTLE),
 	QC_RUDDER_STICK(1080, 1920, -100, 100, CraftTypes.QUADCOPTER_X, ScaleFactorConstants.RUDDER),
 	QC_MODE_STICK(1124, 1960, -100, 100, CraftTypes.QUADCOPTER_X, ScaleFactorConstants.MODE),
 	QC_P_STICK(1050, 1890, 0.5f, 1.5f, CraftTypes.QUADCOPTER_X, ScaleFactorConstants.P),

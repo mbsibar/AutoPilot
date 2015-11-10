@@ -4,9 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import pilot.obss.com.autopilot.commandExecution.PIDProcess;
-import pilot.obss.com.autopilot.commandExecution.fgPlanePilot.algorithms.PIDAltitudeStabilization;
+import pilot.obss.com.autopilot.commandExecution.fgPlanePilot.algorithms.PIDQCAltitudeStabilization;
 import pilot.obss.com.autopilot.commandExecution.fgPlanePilot.algorithms.PIDPlaneAileronStabilization;
 import pilot.obss.com.autopilot.commandExecution.fgPlanePilot.algorithms.PIDPlaneElevatorStabilization;
+import pilot.obss.com.autopilot.commandExecution.fgPlanePilot.algorithms.PIDQCRateThrottleStabilization;
 import pilot.obss.com.autopilot.sensor.PilotSensor;
 import pilot.obss.com.autopilot.util.ActionProcess;
 import pilot.obss.com.autopilot.util.types.CraftTypes;
@@ -21,7 +22,9 @@ public enum PIDProcessList {
     DW_AILERON(new PIDPlaneAileronStabilization(ArduinoPIDConstants.dwAileronPid), true, CraftTypes.DELTAWING),
     DW_ELEVATOR(new PIDPlaneElevatorStabilization(ArduinoPIDConstants.dwElevatorPid), true, CraftTypes.DELTAWING),
 
-    QC_RATE_ALTITIUDE(new PIDAltitudeStabilization(ArduinoPIDConstants.qcAltitudePid), true, CraftTypes.QUADCOPTER_X);
+//    QC_ALTITIUDE(new PIDQCAltitudeStabilization(ArduinoPIDConstants.qcAltitudePid), true, CraftTypes.QUADCOPTER_X),
+    QC_RATE_ALTITIUDE(new PIDQCRateThrottleStabilization(ArduinoPIDConstants.qcRateThrottlePid), true, CraftTypes.QUADCOPTER_X);
+    
 //    QC_AILERON(new PIDAileronStabilization(ArduinoPIDConstants.qcAileronPid), true, CraftTypes.QUADCOPTER_X),
 //    QC_ELEVATOR(new PIDElevatorStabilization(ArduinoPIDConstants.qcElevatorPid), true, CraftTypes.QUADCOPTER_X),
 //    QC_RATE_ELEVATOR(new PIDRateElevatorStabilization(ArduinoPIDConstants.qcElevatorRatePid), true, CraftTypes.QUADCOPTER_X),

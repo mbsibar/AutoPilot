@@ -22,5 +22,7 @@ public class ArduinoPIDConstants {
     public static final AlgorithmObject qcRudderPid = new PIDObject("rudder", 0.4f, 0.01f, 0.01f, 10, 0f, 1024f);
     public static final AlgorithmObject qcThrottlePid = new PIDObject("throttle", 0.4f, 0.1f, 0.001f, 500, 0f, 180f);
     public static final AlgorithmObject qcVerticalSpeedPid = new PIDObject("verticalspeed", 0.4f, 0.01f, 0.01f, 100, -500f, 500f);
-    public static final AlgorithmObject qcAltitudePid = new PIDObject("altitudeRate", 0.4f, 0.01f, 0.01f, 100, -500f, 500f);
+    public static final AlgorithmObject qcAltitudePid = new PIDObject("altitude", 0.4f, 0.01f, 0.01f, 100, -500f, 500f);
+    public static final AlgorithmObject qcRateThrottlePid = new PIDObject("Rate Altitude", 0.4f, 0.01f, 0.01f, 100, -500f, 500f);
+    
 }

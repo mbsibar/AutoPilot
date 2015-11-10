@@ -37,9 +37,9 @@ public class Navigator implements Runnable {
 	public void run() {
 		try {
 			while (true) {
-				while(System.nanoTime() - startTime < 4200000f){
-					TimeUnit.NANOSECONDS.sleep(100);
-				}
+//				while(System.nanoTime() - startTime < 22000000f){
+//					TimeUnit.NANOSECONDS.sleep(100);
+//				}
 				Constants.loopTimer = (new Date().getTime() - startTimeInMillis)/1000f;
 //				Thread.sleep(2);
 				Date startDate = new Date();
