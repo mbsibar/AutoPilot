@@ -1,6 +1,7 @@
-package pilot.obss.com.autopilot.util;
+package pilot.obss.com.autopilot.pid;
 
-import pilot.obss.com.autopilot.util.constants.Constants;
+import pilot.obss.com.autopilot.util.constants.CommonConstants;
+
 
 public class PIDController {
 
@@ -16,12 +17,7 @@ public class PIDController {
 	private float derivative; // last derivative for low-pass filter
 
 	private boolean reset_filter = true; // true when input filter should be
-											// reset
-	// during next call to set_input
-	private float desired;
-
-	private float p;
-	private float i;
+											private float p;
 	private float d;
 
 	public PIDController(float initial_p, float initial_i, float initial_d, float initial_imax, float initial_filt_hz, float dt) {
@@ -69,9 +65,14 @@ public class PIDController {
 		this.input = input;
 	}
 
-	// get_pid - get results from pid controller
 	public float get_pid() {
-		return get_p() + get_i() + get_d();
+		float pid = get_p() + get_i() + get_d();
+		if (pid < -imax) {
+			pid = -imax;
+		} else if (pid > imax) {
+			pid = imax;
+		}
+		return pid;
 	}
 
 	public float get_pi() {
@@ -91,7 +92,6 @@ public class PIDController {
 			} else if (integrator > imax) {
 				integrator = imax;
 			}
-			i = integrator;
 			return integrator;
 		}
 		return 0;
@@ -102,9 +102,9 @@ public class PIDController {
 		return d;
 	}
 
-	// reset_I - reset the integrator
 	public void reset_I() {
 		integrator = 0;
+		d = 0;
 	}
 
 	public float kP() {
@@ -157,7 +157,6 @@ public class PIDController {
 
 	// set the designed rate (for logging purposes)
 	public void set_desired_rate(float desired) {
-		this.desired = desired;
 	}
 
 	public float get_filt_alpha() {
@@ -166,7 +165,7 @@ public class PIDController {
 		}
 
 		// calculate alpha
-		float rc = 1 / (Constants.M_2PI_F * filt_hz);
+		float rc = 1 / (CommonConstants.M_2PI_F * filt_hz);
 		return dt / (dt + rc);
 	}
 }

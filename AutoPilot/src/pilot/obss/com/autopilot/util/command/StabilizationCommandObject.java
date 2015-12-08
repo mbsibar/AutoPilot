@@ -5,6 +5,8 @@ public class StabilizationCommandObject {
 	private boolean stabilizeAileron = false;
 	private boolean stabilizeRudder = false;
 	private boolean stabilizeAirSpeed = false;
+	private boolean stabilizeBaroAltitude = false;
+	private boolean stabilizeRangeAltitude = false;
 	private boolean ROCLock = false;
 	
 	public StabilizationCommandObject() {
@@ -15,12 +17,14 @@ public class StabilizationCommandObject {
 		setStabilizeAileron(true);
 		setStabilizeElevator(true);
 		setStabilizeRudder(true);
+		setStabilizeBaroAltitude(true);
 	}
 
 	public void stopAllStabilization(){
 		setStabilizeElevator(false);
 		setStabilizeAileron(false);
 		setStabilizeRudder(false);
+		setStabilizeBaroAltitude(false);
 	}
 
 	public boolean isStabilizeElevator() {
@@ -63,4 +67,20 @@ public class StabilizationCommandObject {
 		ROCLock = rOCLock;
 	}
 
+	public boolean isStabilizeBaroAltitude() {
+		return stabilizeBaroAltitude;
+	}
+
+	public void setStabilizeBaroAltitude(boolean stabilizeBaroAltitude) {
+		this.stabilizeBaroAltitude = stabilizeBaroAltitude;
+	}
+
+	public boolean isStabilizeRangeAltitude() {
+		return stabilizeRangeAltitude;
+	}
+
+	public void setStabilizeRangeAltitude(boolean stabilizeRangeAltitude) {
+		this.stabilizeRangeAltitude = stabilizeRangeAltitude;
+	}
+	
 }

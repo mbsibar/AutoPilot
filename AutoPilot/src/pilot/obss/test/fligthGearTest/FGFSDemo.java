@@ -1,14 +1,14 @@
-package pilot.obss.com.autopilot.fligthGearTest;
+package pilot.obss.test.fligthGearTest;
 
 import java.io.IOException;
 
-import pilot.obss.com.autopilot.brain.AutoPilot;
 import pilot.obss.com.autopilot.brain.Navigator;
+import pilot.obss.com.autopilot.brain.pilots.AutoPilotIntf;
 import pilot.obss.com.autopilot.brain.pilots.PlanePilot;
 
 public class FGFSDemo {
 	private static final long serialVersionUID = 1L;
-	private static AutoPilot autoPilot = null;
+	private static AutoPilotIntf autoPilot = null;
 	
 	public FGFSDemo(String host, int port) throws IOException {
 		autoPilot = new PlanePilot();

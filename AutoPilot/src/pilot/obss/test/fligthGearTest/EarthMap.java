@@ -1,4 +1,4 @@
-package pilot.obss.com.autopilot.fligthGearTest;
+package pilot.obss.test.fligthGearTest;
 /*
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;

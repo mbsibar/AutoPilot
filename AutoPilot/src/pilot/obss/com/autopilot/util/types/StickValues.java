@@ -1,4 +1,4 @@
-package pilot.obss.com.autopilot.util;
+package pilot.obss.com.autopilot.util.types;
 
 public class StickValues {
 	private float throttle;
@@ -11,6 +11,7 @@ public class StickValues {
 	private float rudderRaw;
 	private float modeRaw;
 	private float throttleRaw;
+	private float gain;
 
 	public float getThrottle() {
 		return throttle;
@@ -92,4 +93,12 @@ public class StickValues {
 		this.modeRaw = modeRaw;
 	}
 
+	public float getGain() {
+		return gain;
+	}
+
+	public void setGain(float gain) {
+		this.gain = gain;
+	}
+	
 }

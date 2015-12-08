@@ -1,14 +1,13 @@
 package pilot.obss.com.autopilot.util.command;
 
 import pilot.obss.com.autopilot.util.Mission;
-import pilot.obss.com.autopilot.util.SingletonCollection;
 
 public class CommandObject {
 	private StabilizationCommandObject stabilizationCommand = new StabilizationCommandObject();
 	private UserCommandObject userCommand = new UserCommandObject();
-	private static CommandObject commandObject;
 	private Mission mission = new Mission();
 
+	private static CommandObject commandObject;
 	public static CommandObject getInstance() {
 		if (commandObject == null) {
 			commandObject = new CommandObject();

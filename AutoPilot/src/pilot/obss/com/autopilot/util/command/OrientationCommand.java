@@ -1,4 +1,4 @@
-package pilot.obss.com.autopilot.commandExecution;
+package pilot.obss.com.autopilot.util.command;
 
 public class OrientationCommand {
 	private float aileron;
@@ -6,7 +6,7 @@ public class OrientationCommand {
 	private float rudder;
 	private float rudderRate;
 	private float throttle;
-	private boolean rotateEnabled = false;
+	private float headingDegree;
 
 	public float getAileron() {
 		return aileron;
@@ -48,12 +48,12 @@ public class OrientationCommand {
 		this.rudderRate = rudderRate;
 	}
 
-	public boolean isRotateEnabled() {
-		return rotateEnabled;
+	public float getHeadingDegree() {
+		return headingDegree;
 	}
 
-	public void setRotateEnabled(boolean rotateEnabled) {
-		this.rotateEnabled = rotateEnabled;
+	public void setHeadingDegree(float headingDegree) {
+		this.headingDegree = headingDegree;
 	}
-
+	
 }

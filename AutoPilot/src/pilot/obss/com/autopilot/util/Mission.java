@@ -1,10 +1,9 @@
 package pilot.obss.com.autopilot.util;
 
-import static pilot.obss.com.autopilot.util.constants.Settings.GPS_TOLERANCE;
-
 import java.util.ArrayList;
 import java.util.List;
 
+import pilot.obss.com.autopilot.util.constants.CommonConstants;
 import pilot.obss.com.autopilot.util.types.GpsLocation;
 import pilot.obss.com.autopilot.util.types.WayPoint;
 
@@ -12,8 +11,8 @@ public class Mission {
 	private List<WayPoint> wayPointList;
 	private boolean completed;
 	private int wayPointIterator;
-	
-	private float R = 6372.795477598f; // WORLD RADIUS
+
+	private float R = 6372.795477598f; 
 
 	public Mission() {
 		completed = false;
@@ -22,23 +21,23 @@ public class Mission {
 	}
 
 	public boolean isCompleted() {
-        return completed;
-    }
+		return completed;
+	}
 
-    public WayPoint getCurrentWayPoint() {
-        if (wayPointList.size() < wayPointIterator || wayPointList.size() == 0) {
-            return null;
-        }
-        return wayPointList.get(wayPointIterator);
-    }
+	public WayPoint getCurrentWayPoint() {
+		if (wayPointList.size() < wayPointIterator || wayPointList.size() == 0) {
+			return null;
+		}
+		return wayPointList.get(wayPointIterator);
+	}
 
 	public void setCurrentPosition(GpsLocation gpsLocation) {
-        if(getCurrentWayPoint()!=null) {
-            if (getDistance(gpsLocation) <= GPS_TOLERANCE) {
-                getCurrentWayPoint().setCompleted(true);
-                wayPointIterator++;
-            }
-        }
+		if (getCurrentWayPoint() != null) {
+			if (getDistance(gpsLocation) <= CommonConstants.GPS_TOLERANCE) {
+				getCurrentWayPoint().setCompleted(true);
+				wayPointIterator++;
+			}
+		}
 	}
 
 	private double getDistance(GpsLocation currentGpsLocation) {
@@ -57,18 +56,10 @@ public class Mission {
 		double latA = gpsLocation.getLatitude();
 		double lonA = gpsLocation.getLongtitude();
 
-//		double Dlat = Math.log(Math.tan(latB / 2 + Math.PI / 4) / Math.tan(latA / 2 + Math.PI / 4));
-//		double Dlon = Math.abs(lonA - lonB);
-//		if (Dlon > 180) {
-//			Dlon = Dlon % 180;
-//		}
-//		Math.toDegrees(Math.atan2(Dlon, Dlat))
-		
-		double y = Math.sin(lonB-lonA) * Math.cos(latB);
-		double x = Math.cos(latA)*Math.sin(latB) -
-		        Math.sin(latA)*Math.cos(latB)*Math.cos(lonB-lonA);
+		double y = Math.sin(lonB - lonA) * Math.cos(latB);
+		double x = Math.cos(latA) * Math.sin(latB) - Math.sin(latA) * Math.cos(latB) * Math.cos(lonB - lonA);
 		double degree = Math.toDegrees(Math.atan2(y, x));
-		if(degree<0){
+		if (degree < 0) {
 			degree += 360;
 		}
 		return degree;

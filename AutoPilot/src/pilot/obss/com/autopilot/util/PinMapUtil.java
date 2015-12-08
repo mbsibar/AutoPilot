@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 
 import pilot.obss.com.autopilot.util.constants.ScaleFactorConstants;
+import pilot.obss.com.autopilot.util.types.PinMap;
+import pilot.obss.com.autopilot.util.types.PinMode;
 
 public class PinMapUtil {
 	private static Map<PinMode, List<PinMap>> fastPinMap = new HashMap<PinMode, List<PinMap>>();

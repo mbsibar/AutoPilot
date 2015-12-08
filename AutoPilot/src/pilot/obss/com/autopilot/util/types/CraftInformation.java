@@ -1,29 +1,22 @@
 package pilot.obss.com.autopilot.util.types;
 
+import pilot.obss.com.autopilot.sensor.PilotSensor;
 import pilot.obss.com.autopilot.util.Mission;
+import pilot.obss.com.util.ApplicationCollection;
 
 public class CraftInformation {
 	private static CraftInformation craftInformation;
 
-	private float airSpeed;
 	private GpsLocation gpsLocation;
 	private Mission mission;
-    private float heading;
-    private float roll;
-    private float pitch;
-    private float rudder;
-    private double pitchRate;
-    private double rollRate;
-    private double altitudeFt;
-    private float verticalSpeed;
-    private double rudderRate;
-    private double gyroCalRoll;
-    private double gyroCalPitch;
-    private double gyroCalYaw;
-    private float gravity;
-
-    private float aileron = 90;
-    private float elevator = 90;
+	private AHRSData ahrsData = new AHRSData();
+	private FlightStatus flightStatus = FlightStatus.INITIALIZED;
+	
+	private double sonarAltitude;
+	private double baroAltitude;
+	private float verticalSpeed;
+	private float gravity;
+	private float airSpeed;
 
 	private CraftInformation() {
 
@@ -45,6 +38,10 @@ public class CraftInformation {
 	}
 
 	public GpsLocation getGpsLocation() {
+		// return gpsLocation;
+		gpsLocation.setAltitude(10);
+		gpsLocation.setLatitude(40.919210f);
+		gpsLocation.setLongtitude(29.315685f);
 		return gpsLocation;
 	}
 
@@ -60,125 +57,32 @@ public class CraftInformation {
 		return mission;
 	}
 
-    public float getHeading(){
-        return heading;
-    }
-
-    public void setHeading(float heading){
-        this.heading = heading;
-    }
-
-    public float getRoll(){
-        return roll;
-    }
-
-    public void setRoll(float roll){
-        this.roll = roll;
-    }
-
-    public float getPitch() {
-        return pitch;
-    }
-
-    public void setPitch(float pitch) {
-        this.pitch = pitch;
-    }
-    
-    public float getRudder() {
-		return heading;
+	public AHRSData getAHRSData() {
+		return ahrsData;
 	}
 
-	public void setRudder(float rudder) {
-		this.rudder = rudder;
+	public double getBaroAltitude() {
+		return baroAltitude;
 	}
 	
-	public double getPitchRate() {
-		return pitchRate - gyroCalPitch;
+	public double getSonarAltitude() {
+		return sonarAltitude;
 	}
 
-	public void setPitchRate(double pitchRate) {
-		this.pitchRate = pitchRate;
+	public void setBaroAltitude(double baroAltitude) {
+		this.baroAltitude = baroAltitude;
 	}
 	
-	public double getRudderRate() {
-		return rudderRate - gyroCalYaw;
+	public void setSonarAltitude(double sonarAltitude) {
+		this.sonarAltitude = sonarAltitude;
 	}
 
-	public void setRudderRate(double rudderRate) {
-		this.rudderRate = rudderRate;
+	public float getVerticalSpeed() {
+		return verticalSpeed;
 	}
 
-	public double getRollRate() {
-		return rollRate - gyroCalRoll;
-	}
-
-	public void setRollRate(double rollRate) {
-		this.rollRate = rollRate;
-	}
-
-	public double getAltitudeFt() {
-        return altitudeFt;
-    }
-
-    public void setAltitudeFt(double altitudeFt) {
-        this.altitudeFt = altitudeFt;
-    }
-
-    public float getVerticalSpeed() {
-        return verticalSpeed;
-    }
-
-    public void setVerticalSpeed(float verticalSpeed) {
-        this.verticalSpeed = verticalSpeed;
-    }
-
-    private float getPwmValue(float motor) {
-        if(motor > 1900){
-            motor = 1900;
-        }else if(motor < 1100) {
-            motor = 1100;
-        }
-        return motor;
-    }
-
-    public void setAileron(float aileron){
-        this.aileron = aileron;
-    }
-
-    public float getAileron(){
-        return aileron;
-    }
-
-    public float getElevator() {
-        return elevator;
-    }
-
-    public void setElevator(float elevator) {
-        this.elevator = elevator;
-    }
-
-	public double getGyroCalRoll() {
-		return gyroCalRoll;
-	}
-
-	public void setGyroCalRoll(double gyroCalRoll) {
-		this.gyroCalRoll = gyroCalRoll;
-	}
-
-	public double getGyroCalPitch() {
-		return gyroCalPitch;
-	}
-
-	public void setGyroCalPitch(double gyroCalPitch) {
-		this.gyroCalPitch = gyroCalPitch;
-	}
-
-	public double getGyroCalYaw() {
-		return gyroCalYaw;
-	}
-
-	public void setGyroCalYaw(double gyroCalYaw) {
-		this.gyroCalYaw = gyroCalYaw;
+	public void setVerticalSpeed(float verticalSpeed) {
+		this.verticalSpeed = verticalSpeed;
 	}
 
 	public float getGravity() {
@@ -188,5 +92,28 @@ public class CraftInformation {
 	public void setGravity(float gravity) {
 		this.gravity = gravity;
 	}
+
+	public FlightStatus getFlightStatus() {
+		return flightStatus;
+	}
+
+	public void setFlightStatus(FlightStatus flightStatus) {
+		this.flightStatus = flightStatus;
+	}
 	
+	public void updateData() {
+		PilotSensor pilotSensor = ApplicationCollection.getPilotSensor();
+		airSpeed = pilotSensor.getAirSpeed();
+		baroAltitude = pilotSensor.getAltituteFt();
+		gpsLocation = new GpsLocation(pilotSensor.getLatitude(), pilotSensor.getLongtitude(), craftInformation.getBaroAltitude());
+		ahrsData.heading = pilotSensor.getHeading();
+		ahrsData.roll = pilotSensor.getRoll();
+		ahrsData.pitch = pilotSensor.getPitch();
+		ahrsData.setPitchRate(pilotSensor.getPitchRate());
+		ahrsData.setYawRate(pilotSensor.getYawRate());
+		ahrsData.setRollRate(pilotSensor.getRollRate());
+		verticalSpeed = pilotSensor.getVerticalSpeed();
+		gravity = pilotSensor.getGravity();
+	}
+
 }

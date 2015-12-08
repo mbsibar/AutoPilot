@@ -1,4 +1,4 @@
-package pilot.obss.com.autopilot.util;
+package pilot.obss.com.autopilot.util.types;
 
 import pilot.obss.com.autopilot.util.constants.ScaleFactorConstants;
 
@@ -8,7 +8,7 @@ public enum PinMap {
 	MOTOR3(17, ScaleFactorConstants.MOTOR3, PinMode.OUTPUT),
 	MOTOR4(27, ScaleFactorConstants.MOTOR4, PinMode.OUTPUT),
 	THURSTOUT(2, ScaleFactorConstants.THROTTLE_OUT, PinMode.OUTPUT),
-	
+	RUDDEROUT(10, ScaleFactorConstants.RUDDER_OUT, PinMode.OUTPUT),
 	
 	/*AILERON_OUT(4, ScaleFactorConstants.AILERON_OUT, PinMode.OUTPUT),
 	ELEVATOR_OUT(17, ScaleFactorConstants.ELEVATOR_OUT, PinMode.OUTPUT),

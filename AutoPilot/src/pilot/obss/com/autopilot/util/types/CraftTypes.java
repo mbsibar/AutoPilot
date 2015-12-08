@@ -1,6 +1,6 @@
 package pilot.obss.com.autopilot.util.types;
 
-import pilot.obss.com.autopilot.brain.AutoPilot;
+import pilot.obss.com.autopilot.brain.pilots.AutoPilotIntf;
 import pilot.obss.com.autopilot.brain.pilots.PlanePilot;
 import pilot.obss.com.autopilot.brain.pilots.QuadCopterPilot;
 
@@ -13,13 +13,13 @@ public enum CraftTypes {
     QUADCOPTER_X(new QuadCopterPilot()),
     FG_PLANE(null);
 
-    private AutoPilot autoPilot;
+    private AutoPilotIntf autoPilot;
 
-    CraftTypes(AutoPilot autoPilot){
+    CraftTypes(AutoPilotIntf autoPilot){
         this.autoPilot = autoPilot;
     }
     
-    public AutoPilot getAutoPilot(){
+    public AutoPilotIntf getAutoPilot(){
     	return autoPilot;
     }
 }
